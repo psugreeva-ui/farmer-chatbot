@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कृषि मित्र (KrishiMitra) - Smart Farmer Advisory AI & Crop Doctor</title>
+    <meta name="description" content="KrishiMitra is an intelligent multilingual farmer advisory AI assistant for crop care, plant disease leaf diagnosis, live weather & spray advisory, mandi prices & MSP, and government subsidies.">
+    <meta name="theme-color" content="#15573f">
+    
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="/static/css/style.css?v=20261106">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌾</text></svg>">
+</head>
+<body>
+
+    <!-- Main Application Header -->
+    <header class="app-header" id="app-header">
+        <div class="header-container">
+            <a href="#" class="brand-wrapper" id="brand-link">
+                <div class="brand-logo-icon" id="brand-logo">🌾</div>
+                <div class="brand-info">
+                    <h1 id="app-title-text">कृषि मित्र (KrishiMitra)</h1>
+                    <p id="app-tagline-text">भारत का स्मार्ट किसान एआई सलाहकार</p>
+                </div>
+            </a>
+
+            <!-- Navigation Tabs -->
+            <nav class="header-nav" id="main-nav" aria-label="Agricultural Modules Navigation">
+                <button class="nav-tab-btn active" id="nav-btn-chat" data-tab="chat">
+                    <span class="tab-icon">💬</span>
+                    <span class="tab-label" id="label-nav-chat">कृषि मित्र चैट</span>
+                </button>
+                <button class="nav-tab-btn" id="nav-btn-doctor" data-tab="doctor">
+                    <span class="tab-icon">🔬</span>
+                    <span class="tab-label" id="label-nav-doctor">फसल डॉक्टर</span>
+                </button>
+                <button class="nav-tab-btn" id="nav-btn-weather" data-tab="weather">
+                    <span class="tab-icon">🌤️</span>
+                    <span class="tab-label" id="label-nav-weather">मौसम व छिड़काव</span>
+                </button>
+                <button class="nav-tab-btn" id="nav-btn-mandi" data-tab="mandi">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label" id="label-nav-mandi">मंडी भाव व MSP</span>
+                </button>
+                <button class="nav-tab-btn" id="nav-btn-schemes" data-tab="schemes">
+                    <span class="tab-icon">📜</span>
+                    <span class="tab-label" id="label-nav-schemes">सरकारी योजनाएं</span>
+                </button>
+            </nav>
+
+            <!-- Language and Theme Controls -->
+            <div class="header-actions">
+                <div class="lang-select-wrapper">
+                    <select id="language-selector" aria-label="Select Language">
+                        <option value="Hindi" selected>हिन्दी (Hindi)</option>
+                        <option value="English">English</option>
+                        <option value="Punjabi">ਪੰਜਾਬੀ (Punjabi)</option>
+                        <option value="Marathi">मराठी (Marathi)</option>
+                        <option value="Telugu">తెలుగు (Telugu)</option>
+                        <option value="Tamil">தமிழ் (Tamil)</option>
+                    </select>
+                </div>
+
+                <button class="icon-btn" id="theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+                    <span id="theme-icon">🌙</span>
+                </button>
+
+                <button class="icon-btn" id="settings-open-btn" title="API Settings & Config" aria-label="Settings">
+                    <span>⚙️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Application Body -->
+    <main class="main-wrapper" id="main-content">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: KrishiMitra AI Chat Advisory        -->
+        <!-- ========================================== -->
+        <section class="tab-content active" id="tab-panel-chat">
+            <div class="chat-section-container">
+                
+                <!-- Main Chat Card -->
+                <div class="chat-card" id="chat-card">
+                    <div class="chat-header-bar">
+                        <div class="chat-status-indicator">
+                            <div class="status-dot"></div>
+                            <div class="chat-status-text">
+                                <h2 id="chat-room-title">कृषि मित्र AI परामर्श कक्ष</h2>
+                                <p id="chat-status-desc">24/7 लाइव कृषि विशेषज्ञ सहायता</p>
+                            </div>
+                        </div>
+                        <div class="chat-badge" id="ai-model-badge">
+                            <span>✨</span>
+                            <span id="model-badge-text">Gemini 3.8 Flash + Agronomy Engine</span>
+                        </div>
+                    </div>
+
+                    <!-- Messages Stream -->
+                    <div class="chat-messages-container" id="chat-messages-box">
+                        <!-- Welcome Message -->
+                        <div class="message-row assistant" id="welcome-message-row">
+                            <div class="message-avatar">🌾</div>
+                            <div class="message-bubble">
+                                <div class="message-meta-timeline">
+                                        <span class="timeline-stamp" id="welcome-live-label">⏱️ 24/7 लाइव</span>
+                                        <span class="timeline-tag speed-tag" id="welcome-speed-label">⚡ रियल-टाइम AI</span>
+                                        <span class="timeline-tag match-tag" id="welcome-match-label">🌱 कृषि मित्र</span>
+                                </div>
+                                <h3 id="chat-welcome-title">राम राम किसान भाई! मैं आपका कृषि मित्र हूँ 🌾</h3>
+                                <p id="chat-welcome-desc">
+                                    फसल की बुवाई, खाद की खुराक, कीट व रोग नियंत्रण, मौसम, मंडी भाव या सरकारी सब्सिडी से जुड़ा कोई भी सवाल पूछें।
+                                </p>
+                                <div class="bubble-actions">
+                                    <button class="action-chip-btn speak-msg-btn" id="speak-welcome-btn" title="सुनें (Listen)">
+                                        <span>🔊</span>
+                                        <span id="welcome-listen-text">सुनें</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Controls -->
+                    <div class="chat-input-wrapper">
+                        <!-- Crop Lifecycle Timeline Selector -->
+                        <div class="chat-timeline-header" id="chat-timeline-header">
+                            <div class="timeline-title-row">
+                                <span class="timeline-label">⏱️ <strong id="timeline-title-text">फसल समय-चक्र टाइमलाइन (Crop Timeline):</strong></span>
+                                <span class="timeline-speed-tag" id="timeline-speed-label">⚡ रियल-टाइम AI सटीक उत्तर</span>
+                            </div>
+                            <select id="timeline-lang-select" class="timeline-lang-select" onchange="onTimelineLangChange()">
+    <option value="en">English</option>
+    <option value="hi" selected>हिन्दी</option>
+    <option value="pa">ਪੰਜਾਬੀ</option>
+    <option value="mr">मराठी</option>
+    <option value="te">తెలుగు</option>
+    <option value="ta">தமிழ்</option>
+</select>
+<div class="timeline-stages-bar" id="timeline-stages-bar">
+                                <button class="timeline-stage-btn active" data-stage="all">
+                                    <span>🌟</span> <span id="stage-all-text">सभी सवाल</span>
+                                </button>
+                                <button class="timeline-stage-btn" data-stage="sowing">
+                                    <span>🌱</span> <span id="stage-sowing-text">1. बुवाई व बीज</span>
+                                </button>
+                                <button class="timeline-stage-btn" data-stage="fertilizer">
+                                    <span>💧</span> <span id="stage-fertilizer-text">2. खाद व सिंचाई</span>
+                                </button>
+                                <button class="timeline-stage-btn" data-stage="protection">
+                                    <span>🛡️</span> <span id="stage-protection-text">3. रोग व कीट रक्षा</span>
+                                </button>
+                                <button class="timeline-stage-btn" data-stage="mandi">
+                                    <span>📊</span> <span id="stage-mandi-text">4. ताज़ा मंडी भाव</span>
+                                </button>
+                                <button class="timeline-stage-btn" data-stage="schemes">
+                                    <span>📜</span> <span id="stage-schemes-text">5. सरकारी सब्सिडी</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Question Chips -->
+                        <div class="quick-prompts-bar" id="quick-prompts-bar">
+                            <button class="prompt-chip" id="prompt-chip-1" data-prompt="गेहूं का आज का ताज़ा मंडी भाव और MSP कितना है?">
+                                <span>📊</span> <span id="chip-text-1">गेहूं मंडी भाव व MSP</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-2" data-prompt="गेहूं में पीला रतुआ का पक्का इलाज और दवा की मात्रा बताएं">
+                                <span>🌾</span> <span id="chip-text-2">पीला रतुआ इलाज</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-3" data-prompt="धान की फसल में डीएपी और यूरिया की संतुलित खुराक कब दें?">
+                                <span>🌱</span> <span id="chip-text-3">धान खाद खुराक</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-4" data-prompt="टमाटर का आज का ताज़ा मंडी भाव क्या है?">
+                                <span>🍅</span> <span id="chip-text-4">टमाटर मंडी भाव</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-5" data-prompt="टमाटर में पत्ता मरोड़ और सफेद मक्खी की रोकथाम कैसे करें?">
+                                <span>🐛</span> <span id="chip-text-5">टमाटर पत्ता मरोड़</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-6" data-prompt="गेहूं में पहली सिंचाई (CRI अवस्था) और खाद कब दें?">
+                                <span>💧</span> <span id="chip-text-6">गेहूं पहली सिंचाई</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-7" data-prompt="पीएम किसान सम्मान निधि ₹6000 योजना में आवेदन कैसे करें?">
+                                <span>💰</span> <span id="chip-text-7">PM-KISAN ₹6000</span>
+                            </button>
+                            <button class="prompt-chip" id="prompt-chip-8" data-prompt="ट्रैक्टर और कृषि यंत्रों पर सरकारी सब्सिडी कैसे प्राप्त करें?">
+                                <span>🚜</span> <span id="chip-text-8">यंत्र सब्सिडी</span>
+                            </button>
+                        </div>
+
+                        <!-- Typing / Mic Bar -->
+                        <form id="chat-form" onsubmit="return false;">
+                            <div class="input-controls-row">
+                                <input 
+                                    type="text" 
+                                    class="chat-input-field" 
+                                    id="chat-input" 
+                                    placeholder="अपनी फसल या समस्या के बारे में पूछें... (बोलने के लिए माइक दबाएं)" 
+                                    autocomplete="off"
+                                >
+                                <button type="button" class="mic-btn" id="voice-input-btn" title="बोलकर पूछें (Voice Input)">
+                                    <span id="mic-icon">🎙️</span>
+                                </button>
+                                <button type="submit" class="send-btn" id="send-chat-btn" title="भेजें">
+                                    <span>➤</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Chat Side Panel -->
+                <aside class="chat-sidebar-card" id="chat-sidebar">
+                    <div class="sidebar-widget">
+                        <div class="widget-title">
+                            <span>🌤️</span>
+                            <span id="sidebar-weather-title">ताज़ा मौसम अलर्ट</span>
+                        </div>
+                        <div class="quick-weather-pill" id="sidebar-weather-pill">
+                            <div>
+                                <strong id="sidebar-hub-name">लुधियाना (पंजाब)</strong>
+                                <div style="font-size:0.75rem; color:var(--text-muted);" id="sidebar-spray-cond">छिड़काव के लिए अनुकूल</div>
+                            </div>
+                            <div class="temp" id="sidebar-temp">28°C</div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <div class="widget-title">
+                            <span>📞</span>
+                            <span id="sidebar-helpline-title">किसान हेल्पलाइन नंबर</span>
+                        </div>
+                        <div class="helpline-box">
+                            <div class="helpline-item">
+                                <span id="helpline-label-kcc">किसान कॉल सेंटर (टोल-फ्री)</span>
+                                <a href="tel:18001801551" class="helpline-phone">1800-180-1551</a>
+                            </div>
+                            <div class="helpline-item">
+                                <span id="helpline-label-pmk">PM-KISAN हेल्पलाइन</span>
+                                <a href="tel:155261" class="helpline-phone">155261</a>
+                            </div>
+                            <div class="helpline-item">
+                                <span id="helpline-label-pmfby">फसल बीमा सहायता</span>
+                                <a href="tel:14447" class="helpline-phone">14447</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <div class="widget-title">
+                            <span>💡</span>
+                            <span id="sidebar-tip-title">आज का कृषि सुझाव</span>
+                        </div>
+                        <p id="sidebar-daily-tip-text" style="font-size:0.8rem; color:var(--text-secondary); line-height: 1.5;">
+                            फसलों में यूरिया का अंधाधुंध उपयोग न करें। कल्ले फूटते समय जिंक सल्फेट (21%) 10 किग्रा प्रति एकड़ अवश्य डालें।
+                        </p>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: Crop Doctor (Disease Diagnosis)     -->
+        <!-- ========================================== -->
+        <section class="tab-content" id="tab-panel-doctor">
+            <div class="doctor-layout-grid">
+                
+                <!-- Left: Photo Upload & Input -->
+                <div class="doctor-input-card">
+                    <div class="section-head-box">
+                        <h2 id="doctor-title-text">🔬 फसल डॉक्टर: पत्ती की फोटो से रोग पहचानें</h2>
+                        <p id="doctor-desc-text">
+                            अपनी बीमार फसल या पत्ती की फोटो अपलोड करें। हमारा एआई रोग की पहचान कर जैविक और रासायनिक उपचार बताएगा।
+                        </p>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="photo-dropzone" id="leaf-dropzone">
+                        <span class="dropzone-icon">🍃</span>
+                        <div class="dropzone-label" id="dropzone-label-text">यहाँ पत्ती की फोटो खींचकर डालें या फाइल चुनें</div>
+                        <button type="button" class="browse-btn" id="browse-leaf-btn">फोटो चुनें</button>
+                        <input type="file" id="leaf-file-input" class="file-input-hidden" accept="image/*">
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="preview-container" id="leaf-preview-container">
+                        <img id="leaf-preview-img" class="preview-image" alt="Uploaded Crop Leaf">
+                        <button class="remove-img-btn" id="remove-img-btn" title="Remove Photo">✕</button>
+                    </div>
+
+                    <!-- Inputs -->
+                    <div class="form-group">
+                        <label for="doctor-crop-name" id="label-doctor-crop">फसल का नाम (वैकल्पिक):</label>
+                        <input type="text" id="doctor-crop-name" class="form-control" placeholder="जैसे: टमाटर, गेहूं, धान, कपास...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="doctor-symptoms" id="label-doctor-symptoms">दिखने वाले लक्षण (वैकल्पिक):</label>
+                        <textarea id="doctor-symptoms" class="form-control" rows="2" placeholder="जैसे: पत्तियों पर भूरे धब्बे, किनारे मुड़ रहे हैं..."></textarea>
+                    </div>
+
+                    <button class="btn-primary-action" id="start-diagnose-btn">
+                        <span>🔍</span>
+                        <span id="btn-diagnose-text">फसल रोग की जांच करें</span>
+                    </button>
+
+                    <!-- Sample Cases -->
+                    <div class="sample-cases-row">
+                        <p id="sample-cases-title">या इनमें से नमूना फसल रोग चुनकर तुरंत टेस्ट करें:</p>
+                        <div class="sample-badges-grid">
+                            <button class="sample-badge-btn" id="sample-btn-tomato" data-sample="tomato_late_blight">🍅 टमाटर पछेती झुलसा</button>
+                            <button class="sample-badge-btn" id="sample-btn-wheat" data-sample="wheat_yellow_rust">🌾 गेहूं पीला रतुआ</button>
+                            <button class="sample-badge-btn" id="sample-btn-cotton" data-sample="cotton_leaf_curl">🌿 कपास पत्ता मरोड़</button>
+                            <button class="sample-badge-btn" id="sample-btn-rice" data-sample="rice_blast">🍚 धान झोंका रोग</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Clinical Diagnosis Report -->
+                <div class="doctor-report-card" id="doctor-report-card">
+                    <div class="section-head-box">
+                        <h2 id="report-header-title">📋 जांच एवं उपचार रिपोर्ट</h2>
+                        <p id="report-header-desc">वैज्ञानिक आधार पर तैयार किया गया फसल सुरक्षा परामर्श</p>
+                    </div>
+
+                    <div id="diagnosis-loading" style="display:none; text-align:center; padding: 3rem 0;">
+                        <div style="font-size: 2.5rem; animation: pulseDot 1s infinite;">🌱</div>
+                        <p id="diagnosis-loading-text" style="margin-top: 1rem; font-weight:600; color:var(--primary);">एआई पत्ती का विश्लेषण कर रहा है...</p>
+                    </div>
+
+                    <div id="diagnosis-empty-placeholder" style="text-align:center; padding: 3rem 1rem; color:var(--text-muted);">
+                        <span style="font-size: 3rem;">🔬</span>
+                        <p id="diagnosis-placeholder-text" style="margin-top: 0.75rem; font-weight: 600;">बाईं ओर से पत्ती की फोटो अपलोड करें या नमूना केस चुनें।</p>
+                    </div>
+
+                    <div id="diagnosis-content" style="display:none;">
+                        <!-- Banner -->
+                        <div class="report-header-banner">
+                            <div class="report-title-row">
+                                <div class="disease-name-box">
+                                    <h3 id="rep-disease-name">Tomato Late Blight</h3>
+                                    <h4 id="rep-disease-hindi">टमाटर का पछेती झुलसा</h4>
+                                </div>
+                                <span class="severity-pill moderate" id="rep-severity">गंभीरता: मध्यम</span>
+                            </div>
+                            <div class="meta-stats-row">
+                                <div><strong id="rep-crop-label">फसल:</strong> <span id="rep-crop">Tomato</span></div>
+                                <div><strong id="rep-confidence-label">सटीकता:</strong> <span id="rep-confidence">96.5%</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Pathology Cause & Symptoms -->
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <strong id="rep-pathogen-label" style="color:var(--text-primary); font-size:0.88rem;">रोगजनक / कारक: </strong>
+                            <span id="rep-pathogen" style="color:var(--text-secondary); font-size:0.88rem;"></span>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.25rem;">
+                            <strong id="rep-symptoms-label" style="color:var(--text-primary); font-size:0.88rem;">प्रमुख लक्षण: </strong>
+                            <p id="rep-symptoms" style="color:var(--text-secondary); font-size:0.88rem; margin-top: 0.25rem;"></p>
+                        </div>
+
+                        <!-- Remedies -->
+                        <div class="remedies-section-box">
+                            <div class="remedy-card organic">
+                                <div class="remedy-title">
+                                    <span>🌱</span>
+                                    <span id="remedy-organic-title">जैविक एवं प्राकृतिक उपचार</span>
+                                </div>
+                                <ul class="remedy-list" id="rep-organic-list"></ul>
+                            </div>
+
+                            <div class="remedy-card chemical">
+                                <div class="remedy-title">
+                                    <span>💊</span>
+                                    <span id="remedy-chemical-title">अनुशंसित रासायनिक उपचार (सटीक खुराक)</span>
+                                </div>
+                                <ul class="remedy-list" id="rep-chemical-list"></ul>
+                            </div>
+
+                            <div class="remedy-card prevention">
+                                <div class="remedy-title">
+                                    <span>🛡️</span>
+                                    <span id="remedy-prevention-title">रोकथाम व दीर्घकालिक प्रबंधन</span>
+                                </div>
+                                <p id="rep-prevention" style="font-size:0.88rem; color:var(--text-secondary);"></p>
+                            </div>
+                        </div>
+
+                        <!-- Jump to Chat -->
+                        <button class="btn-primary-action" id="consult-doctor-chat-btn" style="margin-top: 1rem;">
+                            <span>💬</span>
+                            <span id="consult-doctor-btn-text">कृषि मित्र से इस बीमारी के बारे में और पूछें</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: Farm Weather & Spray Advisory       -->
+        <!-- ========================================== -->
+        <section class="tab-content" id="tab-panel-weather">
+            <div class="weather-hero-card">
+                <div class="weather-header-row">
+                    <div>
+                        <h2 id="weather-title-text" style="font-size: 1.4rem; font-weight: 800; color: var(--primary);">🌤️ कृषि मौसम एवं छिड़काव परामर्श</h2>
+                        <p id="weather-desc-text" style="color: var(--text-secondary); font-size: 0.9rem;">
+                            कीटनाशक या खाद छिड़काव से पहले हवा की गति, आर्द्रता और बारिश की संभावना अवश्य जांचें।
+                        </p>
+                    </div>
+
+                    <div class="hub-select-wrapper">
+                        <label for="weather-hub-select" id="weather-hub-label" style="font-size: 0.8rem; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:0.25rem;">कृषि क्षेत्र:</label>
+                        <select id="weather-hub-select">
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Real-time Metrics -->
+                <div class="weather-metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-icon-box">🌡️</div>
+                        <div>
+                            <div class="metric-val" id="weather-temp-val">--°C</div>
+                            <div class="metric-label" id="metric-temp-label">तापमान (Temperature)</div>
+                        </div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-icon-box">💧</div>
+                        <div>
+                            <div class="metric-val" id="weather-humidity-val">--%</div>
+                            <div class="metric-label" id="metric-humidity-label">सापेक्ष आर्द्रता (Humidity)</div>
+                        </div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-icon-box">💨</div>
+                        <div>
+                            <div class="metric-val" id="weather-wind-val">-- km/h</div>
+                            <div class="metric-label" id="metric-wind-label">हवा की गति (Wind Speed)</div>
+                        </div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-icon-box">🌧️</div>
+                        <div>
+                            <div class="metric-val" id="weather-rain-val">0.0 mm</div>
+                            <div class="metric-label" id="metric-rain-label">वर्षा (Precipitation)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agricultural Advisory Banners -->
+                <div class="advisory-banner-grid">
+                    <div class="advisory-box success" id="spray-advisory-box">
+                        <div class="advisory-status-badge" id="spray-status-badge">
+                            <span>✅</span>
+                            <span id="spray-status-text">छिड़काव के लिए आदर्श</span>
+                        </div>
+                        <p id="spray-desc-text">शांत हवा और अनुकूल आर्द्रता। पत्तेदार पोषक तत्वों और कीटनाशकों के छिड़काव के लिए उपयुक्त समय।</p>
+                    </div>
+
+                    <div class="advisory-box warning" id="irrigation-advisory-box">
+                        <div class="advisory-status-badge">
+                            <span>🌊</span>
+                            <span id="irrigation-title-text">सिंचाई परामर्श</span>
+                        </div>
+                        <p id="irrigation-desc-text">फसल की क्रांतिक अवस्था (जैसे गेहूं में पहली सिंचाई 21 दिन पर) के अनुसार नमी बनाए रखें।</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5-Day Forecast -->
+            <div class="weather-hero-card">
+                <h3 id="forecast-title-text" style="font-size: 1.15rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem;">📅 आगामी 5 दिनों का कृषि मौसम पूर्वानुमान</h3>
+                <div class="forecast-grid" id="weather-forecast-grid">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 4: Mandi Prices & MSP Tracker          -->
+        <!-- ========================================== -->
+        <section class="tab-content" id="tab-panel-mandi">
+            <div class="section-head-box" style="margin-bottom: 1.25rem;">
+                <h2 id="mandi-title-text">📊 ताज़ा मंडी भाव एवं न्यूनतम समर्थन मूल्य (MSP)</h2>
+                <p id="mandi-desc-text">भारत की प्रमुख मंडियों के ताज़ा भाव, दैनिक आवक और सरकारी समर्थन मूल्य की तुलना।</p>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="mandi-filter-bar">
+                <div class="search-input-group">
+                    <span class="search-icon-pos">🔍</span>
+                    <input type="text" id="mandi-search-input" placeholder="फसल, मंडी या जिला खोजें (जैसे: गेहूं, खन्ना, प्याज)...">
+                </div>
+
+                <div class="filter-group">
+                    <select id="mandi-state-select" class="filter-select">
+                        <option value="All">सभी राज्य (All States)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <select id="mandi-crop-select" class="filter-select">
+                        <option value="All">सभी फसलें (All Crops)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Mandi Grid -->
+            <div class="mandi-cards-grid" id="mandi-cards-grid">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 5: Government Schemes & Subsidies      -->
+        <!-- ========================================== -->
+        <section class="tab-content" id="tab-panel-schemes">
+            <div class="section-head-box" style="margin-bottom: 1.25rem;">
+                <h2 id="schemes-title-text">📜 किसान कल्याणकारी सरकारी योजनाएं एवं सब्सिडी</h2>
+                <p id="schemes-desc-text">केंद्र व राज्य सरकारों द्वारा किसानों को दी जाने वाली वित्तीय सहायता, उपकरण सब्सिडी और ऋण योजनाएं।</p>
+            </div>
+
+            <!-- Category & Search Bar -->
+            <div class="mandi-filter-bar">
+                <div class="search-input-group">
+                    <span class="search-icon-pos">🔍</span>
+                    <input type="text" id="scheme-search-input" placeholder="योजना का नाम या लाभ खोजें (जैसे: PM-KISAN, ट्रैक्टर, सोलर)...">
+                </div>
+
+                <div class="filter-group">
+                    <select id="scheme-cat-select" class="filter-select">
+                        <option value="All">सभी श्रेणियां (All Categories)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Schemes Cards Catalog -->
+            <div class="schemes-catalog-grid" id="schemes-cards-grid">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="settings-close-btn">&times;</button>
+            <h3 id="settings-modal-title" style="font-size: 1.3rem; font-weight: 800; color: var(--primary); margin-bottom: 0.5rem;">⚙️ सेटिंग्स (KrishiMitra Settings)</h3>
+            <p id="settings-modal-desc" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                अपनी गूगल जेमिनी एपीआई की (Gemini API Key) दर्ज करें ताकि एआई और अधिक गहराई से उत्तर दे सके।
+            </p>
+
+            <div class="form-group">
+                <label for="gemini-key-input" id="api-key-label">Google Gemini API Key:</label>
+                <input type="password" id="gemini-key-input" class="form-control" placeholder="AIzaSy...">
+                <small style="color:var(--text-muted); font-size:0.75rem; display:block; margin-top:0.35rem;">
+                    * यदि एपीआई की नहीं है, तो भी कृषि मित्र अंतर्निहित कृषिविज्ञान इंजन से पूर्ण कार्य करता है।
+                </small>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+                <div id="key-status-badge" style="font-size: 0.82rem; font-weight: 700; color: var(--success);">
+                    स्थिति: जांच हो रही है...
+                </div>
+            </div>
+
+            <button class="btn-primary-action" id="save-key-btn" style="margin-top: 1.25rem;">
+                <span id="save-key-btn-text">सहेजें (Save Settings)</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Application Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-tag">
+                <span>🌾</span>
+                <strong>कृषि मित्र (KrishiMitra)</strong> - समर्पित भारतीय किसान सेवा
+            </div>
+            <div id="footer-tagline-text">
+                सशक्त किसान, समृद्ध भारत | Powered by Google Gemini & Open Agro Data
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/js/translations.js?v=20261106"></script>
+    <script src="/static/js/app.js?v=20261106"></script>
+</body>
+</html>
